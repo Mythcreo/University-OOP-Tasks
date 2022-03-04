@@ -91,27 +91,27 @@ void Graphics::Info() {
 	int typenume, counter = 0;
 	for (vector <Primitive>::iterator itera = forms.begin(); itera != forms.end(); itera++) {
 		cout << ++counter << ") ";
-		typenume = (*itera).GetType(); // Тип графического примитива
-		if (typenume == 1) { // Для точки
+		typenume = (*itera).GetType(); // РўРёРї РіСЂР°С„РёС‡РµСЃРєРѕРіРѕ РїСЂРёРјРёС‚РёРІР°
+		if (typenume == 1) { // Р”Р»СЏ С‚РѕС‡РєРё
 			Point *p = (Point *)(*itera).GetO();
 			cout << "Point (" << p->GetX() << ", " << p->GetY() << ")" << endl;
 		}
-		else if (typenume == 2) { // Для отрезка
+		else if (typenume == 2) { // Р”Р»СЏ РѕС‚СЂРµР·РєР°
 			Line *p = (Line *)(*itera).GetO();
 			cout << "Line (" << p->GetSX() << ", " << p->GetSY() << ", "
 				<< p->GetEX() << ", " << p->GetEY() << ")" << endl;
 		}
-		else if (typenume == 3) { // Для эллипса
+		else if (typenume == 3) { // Р”Р»СЏ СЌР»Р»РёРїСЃР°
 			Ellipses *p = (Ellipses *)(*itera).GetO();
 			cout << "Ellipse (" << p->GetLUpX() << ", " << p->GetLUpY() << ", "
 				<< p->GetRDownX() << ", " << p->GetRDownY() << ")" << endl;
 		}
-		else if (typenume == 4) { // Для прямоугольника
+		else if (typenume == 4) { // Р”Р»СЏ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР°
 			Rectangles *p = (Rectangles *)(*itera).GetO();
 			cout << "Rectangle (" << p->GetLUpX() << ", " << p->GetLUpY() << ", "
 				<< p->GetRDownX() << ", " << p->GetRDownY() << ")" << endl;
 		}
-		else if (typenume == 5) { // Для многоугольника
+		else if (typenume == 5) { // Р”Р»СЏ РјРЅРѕРіРѕСѓРіРѕР»СЊРЅРёРєР°
 			Polygons *p = (Polygons *)(*itera).GetO();
 			cout << "Polygon (" << p->GetOneX() << ", " << p->GetOneY() << ", "
 				<< p->GetTwoX() << ", " << p->GetTwoY() << ", "
@@ -119,28 +119,26 @@ void Graphics::Info() {
 		}
 	}
 }
-void Graphics::Show(int nume) {
-	HWND hwnd = GetConsoleWindow(); // HWND - Handle to a window
-	HDC hdc = GetDC(hwnd); // HDC - Handle to device context
+void Graphics::Show(int nume, HWND &hwnd, HDC &hdc) {
 	vector <Primitive>::iterator itera = forms.begin() + nume - 1;
 	int typenume = (*itera).GetType();
 	SelectObject(hdc, GetStockObject(WHITE_PEN));
-	if (typenume == 2) { // Для отрезка
+	if (typenume == 2) { // Р”Р»СЏ РѕС‚СЂРµР·РєР°
 		Line *p = (Line *)(*itera).GetO();
 		MoveToEx(hdc, p->GetSX(), p->GetSY(), NULL);
 		LineTo(hdc, p->GetEX(), p->GetEY());
 	}
-	else if (typenume == 3) { // Для эллипса
+	else if (typenume == 3) { // Р”Р»СЏ СЌР»Р»РёРїСЃР°
 		Ellipses *p = (Ellipses *)(*itera).GetO();
 		SelectObject(hdc, GetStockObject(WHITE_BRUSH));
 		Ellipse(hdc, p->GetLUpX(), p->GetLUpY(), p->GetRDownX(), p->GetRDownY());
 	}
-	else if (typenume == 4) { // Для прямоугольника
+	else if (typenume == 4) { // Р”Р»СЏ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР°
 		SelectObject(hdc, GetStockObject(NULL_BRUSH));
 		Rectangles *p = (Rectangles *)(*itera).GetO();
 		Rectangle(hdc, p->GetLUpX(), p->GetLUpY(), p->GetRDownX(), p->GetRDownY());
 	}
-	else if (typenume == 5) { // Для многоугольника
+	else if (typenume == 5) { // Р”Р»СЏ РјРЅРѕРіРѕСѓРіРѕР»СЊРЅРёРєР°
 		Polygons *p = (Polygons *)(*itera).GetO();
 		SelectObject(hdc, GetStockObject(WHITE_BRUSH));
 		MoveToEx(hdc, 700, 300, NULL);
