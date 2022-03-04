@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-// Класс точки
+// РљР»Р°СЃСЃ С‚РѕС‡РєРё
 class Point {
 private:
 	int x{}, y{};
@@ -16,7 +16,7 @@ public:
 	int GetY();
 };
 
-// Класс отрезка
+// РљР»Р°СЃСЃ РѕС‚СЂРµР·РєР°
 class Line {
 private:
 	Point start, end;
@@ -29,7 +29,7 @@ public:
 	int GetEY();
 };
 
-// Класс прямоугольника
+// РљР»Р°СЃСЃ РїСЂСЏРјРѕСѓРіРѕР»СЊРЅРёРєР°
 class Rectangles {
 private:
 	Point leftUp, leftDown, rightUp, rightDown;
@@ -47,7 +47,7 @@ public:
 	int GetRDownY();
 };
 
-// Класс эллипса
+// РљР»Р°СЃСЃ СЌР»Р»РёРїСЃР°
 class Ellipses {
 private:
 	Point leftUp, rightDown;
@@ -61,7 +61,7 @@ public:
 	int GetRDownY();
 };
 
-// Класс многоугольника
+// РљР»Р°СЃСЃ РјРЅРѕРіРѕСѓРіРѕР»СЊРЅРёРєР°
 class Polygons {
 private:
 	Point one, two, three;
@@ -77,7 +77,7 @@ public:
 	int GetThreeY();
 };
 
-// Хранится указатель к графическому примитиву вместе с его типом
+// РҐСЂР°РЅРёС‚СЃСЏ СѓРєР°Р·Р°С‚РµР»СЊ Рє РіСЂР°С„РёС‡РµСЃРєРѕРјСѓ РїСЂРёРјРёС‚РёРІСѓ РІРјРµСЃС‚Рµ СЃ РµРіРѕ С‚РёРїРѕРј
 class Primitive {
 private:
 	void *object{};
@@ -89,7 +89,7 @@ public:
 	void *GetO();
 };
 
-// При создании средства рисования Graphics вводятся графические примитивы вместе с их типами
+// РџСЂРё СЃРѕР·РґР°РЅРёРё СЃСЂРµРґСЃС‚РІР° СЂРёСЃРѕРІР°РЅРёСЏ Graphics РІРІРѕРґСЏС‚СЃСЏ РіСЂР°С„РёС‡РµСЃРєРёРµ РїСЂРёРјРёС‚РёРІС‹ РІРјРµСЃС‚Рµ СЃ РёС… С‚РёРїР°РјРё
 // Point - 1, Line - 2, Ellipses - 3, Rectangles - 4, Polygon - 5
 class Graphics {
 private:
@@ -98,7 +98,7 @@ public:
 	Graphics() { }
 	Graphics(vector <Primitive> forms);
 	void Info();
-	void Show(int nume);
+	void Show(int nume, HWND &hwnd, HDC &hdc);
 	void Add(Primitive zero);
 	void Remove(int nume);
 	void Clear();
