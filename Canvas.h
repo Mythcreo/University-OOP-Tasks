@@ -64,17 +64,15 @@ public:
 // Класс многоугольника
 class Polygons {
 private:
-	Point one, two, three;
+	POINT *vecpoints;
+	int pointsnume{};
 	bool color{};
 public:
-	Polygons(int oneX, int oneY, int twoX, int twoY, int threeX, int threeY, bool color);
-	void Set(int oneX, int oneY, int twoX, int twoY, int threeX, int threeY, bool color);
-	int GetOneX();
-	int GetOneY();
-	int GetTwoX();
-	int GetTwoY();
-	int GetThreeX();
-	int GetThreeY();
+	// Ожидается реализация применения bool color, пока не используется
+	Polygons(vector <POINT> vec, int pointsnume, bool color);
+	void Set(vector <POINT> vec, int pointsnume, bool color);
+	POINT *GetVecpoints();
+	int GetPointsnume();
 };
 
 // Хранится указатель к графическому примитиву вместе с его типом
