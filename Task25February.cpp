@@ -10,16 +10,15 @@ int main()
 		Primitive(new Ellipses(200, 200, 300, 350, 1), 3),
 		Primitive(new Rectangles(500, 500, 600, 600, 0), 4)
 	});
-	Settings.Add(Primitive(new Polygons(800, 400, 1000, 300, 800, 200, 0), 5));
+	Settings.Add(Primitive(new Polygons({ {800, 400}, {1000, 300}, {800, 200} }, 3, 0), 5));
+	Settings.Add(Primitive(new Polygons({ {800, 400}, {1000, 300}, {400, 100}, {100, 400} }, 4, 0), 5));
+	Settings.Add(Primitive(new Polygons({ {400, 200}, {500, 150}, {400, 100} }, 3, 0), 5));
 	Settings.Remove(4);
 
 	Settings.Info();
 	system("pause");
 	system("cls");
 	//Settings.Clear(); // Очищение списка
-	Settings.Show(1, hwnd, hdc);
-	Settings.Show(2, hwnd, hdc);
-	Settings.Show(3, hwnd, hdc);
-	Settings.Show(4, hwnd, hdc);
+	Settings.Show(5, hwnd, hdc);
 	return 0;
 }
