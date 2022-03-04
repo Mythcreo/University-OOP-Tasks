@@ -1,7 +1,9 @@
-﻿#include "Canvas.h"
-
+#include "Canvas.h"
+#include <windows.h>
 int main()
 {
+	HWND hwnd = GetConsoleWindow(); // HWND - Handle to a window
+	HDC hdc = GetDC(hwnd); // HDC - Handle to device context
 	Graphics Settings(vector <Primitive> { 
 		Primitive(new Line(500, 100, 700, 500), 2),
 		Primitive(new Rectangles(100, 180, 400, 400, 1), 4),
@@ -15,11 +17,9 @@ int main()
 	system("pause");
 	system("cls");
 	//Settings.Clear(); // Очищение списка
-
-	Settings.Show(1);
-	Settings.Show(2);
-	Settings.Show(3);
-	Settings.Show(4);
-
+	Settings.Show(1, hwnd, hdc);
+	Settings.Show(2, hwnd, hdc);
+	Settings.Show(3, hwnd, hdc);
+	Settings.Show(4, hwnd, hdc);
 	return 0;
 }
