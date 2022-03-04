@@ -60,22 +60,23 @@ int Ellipses::GetLUpY() { return leftUp.GetY(); }
 int Ellipses::GetRDownX() { return rightDown.GetX(); }
 int Ellipses::GetRDownY() { return rightDown.GetX(); }
 
-Polygons::Polygons(int oneX, int oneY, int twoX, int twoY, int threeX, int threeY, bool color) {
-	one.Set(oneX, oneY);
-	two.Set(twoX, twoY);
-	three.Set(threeX, threeY);
+Polygons::Polygons(vector <POINT> vec, int pointsnume, bool color) {
+	vecpoints = new POINT[vec.size()];
+	for (int i = 0; i < vec.size(); i++) {
+		vecpoints[i] = vec[i];
+	}
+	this->pointsnume = pointsnume;
 }
-void Polygons::Set(int oneX, int oneY, int twoX, int twoY, int threeX, int threeY, bool color) {
-	one.Set(oneX, oneY);
-	two.Set(twoX, twoY);
-	three.Set(threeX, threeY);
+void Polygons::Set(vector <POINT> vec, int pointsnume, bool color) {
+	vecpoints = new POINT[vec.size()];
+	for (int i = 0; i < vec.size(); i++) {
+		vecpoints[i] = vec[i];
+	}
+	this->pointsnume = pointsnume;
 }
-int Polygons::GetOneX() { return one.GetX(); }
-int Polygons::GetOneY() { return one.GetY(); }
-int Polygons::GetTwoX() { return two.GetX(); }
-int Polygons::GetTwoY() { return two.GetY(); }
-int Polygons::GetThreeX() { return three.GetX(); }
-int Polygons::GetThreeY() { return three.GetY(); }
+//vector <POINT> Polygons::GetVec() { return vecpoints; }
+POINT *Polygons::GetVecpoints() { return vecpoints; }
+int Polygons::GetPointsnume() { return pointsnume; }
 
 Primitive::Primitive(void *object, int type) {
 	this->object = object;
@@ -111,11 +112,18 @@ void Graphics::Info() {
 			cout << "Rectangle (" << p->GetLUpX() << ", " << p->GetLUpY() << ", "
 				<< p->GetRDownX() << ", " << p->GetRDownY() << ")" << endl;
 		}
-		else if (typenume == 5) { // Для многоугольника
+		else if (typenume == 5) { // Для многоугольника	
 			Polygons *p = (Polygons *)(*itera).GetO();
-			cout << "Polygon (" << p->GetOneX() << ", " << p->GetOneY() << ", "
-				<< p->GetTwoX() << ", " << p->GetTwoY() << ", "
-				<< p->GetThreeX() << ", " << p->GetThreeY() << ")" << endl;
+			POINT zero;
+			// Реализация вывода планируется. Изменение в связи с добавлением вектора - длина теперь неизвестна
+			cout << "Polygon (";
+			zero = p->GetVecpoints()[0];
+			cout << zero.x << ", " << zero.y;
+			for (int i = 1; i < p->GetPointsnume(); i++) {
+				zero = p->GetVecpoints()[i];
+				cout << ", " << zero.x << ", " << zero.y;
+			}
+			cout << ")" << endl;
 		}
 	}
 }
@@ -141,11 +149,7 @@ void Graphics::Show(int nume, HWND &hwnd, HDC &hdc) {
 	else if (typenume == 5) { // Для многоугольника
 		Polygons *p = (Polygons *)(*itera).GetO();
 		SelectObject(hdc, GetStockObject(WHITE_BRUSH));
-		MoveToEx(hdc, 700, 300, NULL);
-		LineTo(hdc, p->GetOneX(), p->GetOneY());
-		LineTo(hdc, p->GetTwoX(), p->GetTwoY());
-		LineTo(hdc, p->GetThreeX(), p->GetThreeY());
-		LineTo(hdc, 700, 300);
+		Polygon(hdc, p->GetVecpoints(), p->GetPointsnume());
 	}
 	ReleaseDC(hwnd, hdc);
 }
