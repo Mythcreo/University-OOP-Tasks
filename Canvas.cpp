@@ -44,6 +44,7 @@ int Rectangles::GetRUpX() { return rightUp.GetX(); }
 int Rectangles::GetRUpY() { return rightUp.GetY(); }
 int Rectangles::GetRDownX() { return rightDown.GetX(); }
 int Rectangles::GetRDownY() { return rightDown.GetX(); }
+bool Rectangles::GetColor() { return color; }
 
 Ellipses::Ellipses(int x1, int y1, int x2, int y2, bool color) {
 	leftUp.Set(x1, y1);
@@ -135,21 +136,66 @@ void Graphics::Show(int nume, HWND &hwnd, HDC &hdc) {
 		Line *p = (Line *)(*itera).GetO();
 		MoveToEx(hdc, p->GetSX(), p->GetSY(), NULL);
 		LineTo(hdc, p->GetEX(), p->GetEY());
+		char iKey = 0;
+		while (iKey != 27) {
+			if (_kbhit()) {
+				iKey = _getch();
+				switch (iKey) {
+				case 112:
+					MoveToEx(hdc, p->GetSX(), p->GetSY(), NULL);
+					LineTo(hdc, p->GetEX(), p->GetEY());
+					break;
+				}
+			}
+		}
 	}
 	else if (typenume == 3) { // Для эллипса
 		Ellipses *p = (Ellipses *)(*itera).GetO();
 		SelectObject(hdc, GetStockObject(WHITE_BRUSH));
 		Ellipse(hdc, p->GetLUpX(), p->GetLUpY(), p->GetRDownX(), p->GetRDownY());
+		char iKey = 0;
+		while (iKey != 27) {
+			if (_kbhit()) {
+				iKey = _getch();
+				switch (iKey) {
+				case 112:
+					Ellipse(hdc, p->GetLUpX(), p->GetLUpY(), p->GetRDownX(), p->GetRDownY());
+					break;
+				}
+			}
+		}
 	}
 	else if (typenume == 4) { // Для прямоугольника
 		SelectObject(hdc, GetStockObject(NULL_BRUSH));
 		Rectangles *p = (Rectangles *)(*itera).GetO();
 		Rectangle(hdc, p->GetLUpX(), p->GetLUpY(), p->GetRDownX(), p->GetRDownY());
+		char iKey = 0;
+		while (iKey != 27) {
+			if (_kbhit()) {
+				iKey = _getch();
+				switch (iKey) {
+				case 112:
+					Rectangle(hdc, p->GetLUpX(), p->GetLUpY(), p->GetRDownX(), p->GetRDownY());
+					break;
+				}
+			}
+		}
 	}
 	else if (typenume == 5) { // Для многоугольника
 		Polygons *p = (Polygons *)(*itera).GetO();
 		SelectObject(hdc, GetStockObject(WHITE_BRUSH));
 		Polygon(hdc, p->GetVecpoints(), p->GetPointsnume());
+		char iKey = 0;
+		while (iKey != 27) {
+			if (_kbhit()) {
+				iKey = _getch();
+				switch (iKey) {
+				case 112:
+					Polygon(hdc, p->GetVecpoints(), p->GetPointsnume());
+					break;
+				}
+			}
+		}
 	}
 	ReleaseDC(hwnd, hdc);
 }
