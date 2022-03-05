@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <iostream>
 #include <vector>
+#include "conio.h"
 using namespace std;
 Point::Point(int x, int y) {
 	this->x = x;
