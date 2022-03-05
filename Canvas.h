@@ -33,10 +33,11 @@ public:
 class Rectangles {
 private:
 	Point leftUp, leftDown, rightUp, rightDown;
-	bool color{};
+	bool is_fill{};
+	int r{}, g{}, b{};
 public:
-	Rectangles(int x1, int y1, int x2, int y2, bool color);
-	void Set(int x1, int y1, int x2, int y2, bool color);
+	Rectangles(int x1, int y1, int x2, int y2, bool is_fill, int r, int g, int b);
+	void Set(int x1, int y1, int x2, int y2, bool is_fill, int r, int g, int b);
 	int GetLUpX();
 	int GetLUpY();
 	int GetLDownX();
@@ -45,20 +46,29 @@ public:
 	int GetRUpY();
 	int GetRDownX();
 	int GetRDownY();
+	int GetR();
+	int GetG();
+	int GetB();
+	bool GetFill();
 };
 
 // Класс эллипса
 class Ellipses {
 private:
 	Point leftUp, rightDown;
-	bool color{};
+	bool is_fill{};
+	int r{}, g{}, b{};
 public:
-	Ellipses(int x1, int y1, int x2, int y2, bool color);
-	void Set(int x1, int y1, int x2, int y2, bool color);
+	Ellipses(int x1, int y1, int x2, int y2, bool is_fill, int r, int g, int b);
+	void Set(int x1, int y1, int x2, int y2, bool is_fill, int r, int g, int b);
 	int GetLUpX();
 	int GetLUpY();
 	int GetRDownX();
 	int GetRDownY();
+	int GetR();
+	int GetG();
+	int GetB();
+	bool GetFill();
 };
 
 // Класс многоугольника
@@ -66,13 +76,18 @@ class Polygons {
 private:
 	POINT *vecpoints;
 	int pointsnume{};
-	bool color{};
+	bool is_fill{};
+	int r{}, g{}, b{};
 public:
 	// Ожидается реализация применения bool color, пока не используется
-	Polygons(vector <POINT> vec, int pointsnume, bool color);
-	void Set(vector <POINT> vec, int pointsnume, bool color);
+	Polygons(vector <POINT> vec, int pointsnume, bool is_fill, int r, int g, int b);
+	void Set(vector <POINT> vec, int pointsnume, bool is_fill, int r, int g, int b);
 	POINT *GetVecpoints();
 	int GetPointsnume();
+	int GetR();
+	int GetG();
+	int GetB();
+	bool GetFill();
 };
 
 // Хранится указатель к графическому примитиву вместе с его типом
@@ -96,8 +111,17 @@ public:
 	Graphics() { }
 	Graphics(vector <Primitive> forms);
 	void Info();
-	void Show(int nume, HWND &hwnd, HDC &hdc);
+	void Show(int nume, HWND &hwnd);
 	void Add(Primitive zero);
 	void Remove(int nume);
 	void Clear();
+};
+
+void add_figure(int *coord1, int *coord2, int *coord3, int *coord4, bool *is_fill, int *r, int *g, int *b, bool is_not_line);
+
+void Intro(HWND &hwnd, int timedelay, int t1, int t2, int t3, bool start);
+
+class Menu {
+public:
+	void Options(Graphics &Settings);
 };
